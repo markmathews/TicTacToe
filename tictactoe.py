@@ -54,6 +54,9 @@ class TicTacToe:
                     self.num_moves += 1
                     self.displayBoard()
                     self._updateGameStatus()  # check if either player won
+                    if not self.game_over:
+                        print('Next turn: {}'
+                              .format(self.markers[self.num_moves % 2]))
                     # return True
             else:
                 print('Invalid position')
