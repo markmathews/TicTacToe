@@ -15,8 +15,17 @@ class TicTacToe:
         self.default_cell_value = ' '  # single char as placeholder
         self.markers = ('X', 'O')
         self.dash_length = 11
-        self.newGame(reset_scores=True)
+        self.showGameTitle()
         self.showHelp()
+        self.newGame(reset_scores=True)
+
+    def showGameTitle(self):
+        print(
+            ' _____ _     _____         _____          \n'
+            '|_   _(_) __|_   _|_ _  __|_   _|__   ___\n'
+            '  | | | |/ __|| |/ _` |/ __|| |/ _ \\ / _ \\\n'
+            '  | | | | (__ | | (_| | (__ | | (_) |  __/\n'
+            '  |_| |_|\\___||_|\\__,_|\\___||_|\\___/ \\___|\n')
 
     def showHelp(self):
         help_msg = '\n'.join(['Methods',
@@ -30,7 +39,7 @@ class TicTacToe:
                               ' player scores',
                               'showScores()\n'
                               '    '
-                              'Show player scores'])
+                              'Show player scores\n'])
         print(help_msg)
 
     def newGame(self, reset_scores=False):
