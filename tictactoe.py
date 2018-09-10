@@ -76,7 +76,7 @@ class TicTacToe:
     def showScores(self):
         score_msg = '\n'.join(['Scores', '-' * self.dash_length,
                                'Player 1: {}'.format(self.player_scores[0]),
-                               'Player 2: {}'.format(self.player_scores[1])
+                               'Player 2: {}\n'.format(self.player_scores[1])
                                ])
         print(score_msg)
 
@@ -113,6 +113,13 @@ class TicTacToe:
                 self.player_scores[player_num - 1] += 1
                 self.showScores()
                 self.game_over = True
+
+        # Check if game drawn
+        if self.num_moves == 9 and not self.game_over:
+            print('Draw!\n')
+            self.player_scores = [s + 0.5 for s in self.player_scores]
+            self.showScores()
+            self.game_over = True
 
     def displayBoard(self):
         """Print out board state with formatting"""
