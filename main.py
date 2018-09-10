@@ -6,8 +6,8 @@ if __name__ == "__main__":
         invalid_input = True
         while invalid_input:
             try:
-		print('Enter move position as m n: ')
-		m, n = map(int, raw_input().split())
+                print('Enter move position as m n: ')
+                m, n = map(int, input().split())
                 invalid_input = False
             except Exception as e:
                 print('Invalid input: {}\n'.format(e))
