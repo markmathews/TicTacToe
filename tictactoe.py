@@ -55,7 +55,7 @@ class TicTacToe:
         if not self.game_over:
             if m in range(3) and n in range(3):
                 if self.board_state[m, n] != self.default_cell_value:
-                    print('That square has already been marked')
+                    print('That square has already been marked\n')
                     # return False
                 else:
                     marker = self.markers[self.num_moves % 2]
@@ -64,13 +64,13 @@ class TicTacToe:
                     self.displayBoard()
                     self._updateGameStatus()  # check if either player won
                     if not self.game_over:
-                        print('Next turn: {}'
+                        print('Next turn: {}\n'
                               .format(self.markers[self.num_moves % 2]))
                     # return True
             else:
-                print('Invalid position')
+                print('Invalid position\n')
         else:
-            print('Game over, start a new one')
+            print('Game over, start a new one\n')
             # return False
 
     def showScores(self):

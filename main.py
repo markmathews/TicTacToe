@@ -10,7 +10,7 @@ if __name__ == "__main__":
 		m, n = map(int, raw_input().split())
                 invalid_input = False
             except Exception as e:
-                print('Invalid input: {}'.format(e))
+                print('Invalid input: {}\n'.format(e))
         game.playMove(m, n)
         if game.game_over:
             print('Starting new game...\n')
