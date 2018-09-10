@@ -44,7 +44,7 @@ class TicTacToe:
 
     def newGame(self, reset_scores=False):
         if reset_scores:
-            self.player_scores = [0, 0]
+            self.player_scores = np.array([0, 0], dtype=float)
         self.board_state = np.full((3, 3), self.default_cell_value)
         self.num_moves = 0
         self.game_over = False
@@ -117,7 +117,7 @@ class TicTacToe:
         # Check if game drawn
         if self.num_moves == 9 and not self.game_over:
             print('Draw!\n')
-            self.player_scores = [s + 0.5 for s in self.player_scores]
+            self.player_scores += 0.5
             self.showScores()
             self.game_over = True
 
