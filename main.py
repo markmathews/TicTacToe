@@ -6,11 +6,12 @@ if __name__ == "__main__":
         invalid_input = True
         while invalid_input:
             try:
-                ip = map(int, input('Enter move position \'m n\': ').split())
+		print('Enter move position as m n: ')
+		m, n = map(int, raw_input().split())
                 invalid_input = False
             except Exception as e:
                 print('Invalid input: {}'.format(e))
-        game.playMove(ip[0], ip[1])
+        game.playMove(m, n)
         if game.game_over:
             print('Starting new game...\n')
             game.newGame()
