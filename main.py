@@ -13,5 +13,11 @@ if __name__ == "__main__":
                 print('Invalid input: {}\n'.format(e))
         game.playMove(m, n)
         if game.game_over:
-            print('Starting new game...\n')
-            game.newGame()
+            print('Start new game? [Y/n]')
+            start_new_game = input()
+            if start_new_game.lower() == 'y':
+                print('\nStarting new game...\n')
+                game.newGame()
+            else:
+                print('\nThank you for playing!')
+                break
