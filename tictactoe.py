@@ -11,10 +11,11 @@ class TicTacToe:
         'X' for player 1,
         'O' for player 2
     """
-    def __init__(self):
+    def __init__(self, dimension=3):
         self.default_cell_value = ' '  # single char as placeholder
         self.markers = ('X', 'O')
-        self.dash_length = 11
+        self.dimension = dimension
+        self.dash_length = 4 * self.dimension - 1
         self.showGameTitle()
         self.showHelp()
         self.newGame(reset_scores=True)
@@ -45,7 +46,8 @@ class TicTacToe:
     def newGame(self, reset_scores=False):
         if reset_scores:
             self.player_scores = np.array([0, 0], dtype=float)
-        self.board_state = np.full((3, 3), self.default_cell_value)
+        self.board_state = np.full((self.dimension, self.dimension),
+                                   self.default_cell_value)
         self.num_moves = 0
         self.game_over = False
         self.displayBoard()
@@ -53,7 +55,7 @@ class TicTacToe:
     def playMove(self, m, n, show_board_after=True):
         """Execute move if possible"""
         if not self.game_over:
-            if m in range(3) and n in range(3):
+            if m in range(self.dimension) and n in range(self.dimension):
                 if self.board_state[m, n] != self.default_cell_value:
                     print('That square has already been marked\n')
                     # return False
@@ -115,7 +117,7 @@ class TicTacToe:
         _detectGameOver(_linesToCheck())
 
         if not self.game_over:
-            if self.num_moves == 8:
+            if self.num_moves == self.dimension ** 2 - 1:
                 empty_square = np.where(
                     self.board_state == self.default_cell_value
                 )
@@ -123,7 +125,7 @@ class TicTacToe:
                 # play obvious last move
                 self.playMove(m, n, show_board_after=False)
             # Check if game drawn
-            elif self.num_moves == 9:
+            elif self.num_moves == self.dimension ** 2:
                 print('Draw!\n')
                 self.player_scores += 0.5
                 self.showScores()
