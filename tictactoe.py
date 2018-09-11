@@ -50,7 +50,7 @@ class TicTacToe:
         self.game_over = False
         self.displayBoard()
 
-    def playMove(self, m, n):
+    def playMove(self, m, n, show_board_after=True):
         """Execute move if possible"""
         if not self.game_over:
             if m in range(3) and n in range(3):
@@ -61,7 +61,8 @@ class TicTacToe:
                     marker = self.markers[self.num_moves % 2]
                     self.board_state[m, n] = marker
                     self.num_moves += 1
-                    self.displayBoard()
+                    if show_board_after:
+                        self.displayBoard()
                     self._updateGameStatus()  # check if either player won
                     if not self.game_over:
                         print('Next turn: {}\n'
@@ -102,24 +103,31 @@ class TicTacToe:
                 lines_to_check.append(diagonal)
             return lines_to_check
 
-        # Get lines to check
-        lines_to_check = _linesToCheck()
+        def _detectGameOver(lines_to_check):
+            for line in lines_to_check:
+                if _checkLine(line):  # someone has won
+                    player_num = self.markers.index(line[0]) + 1
+                    print('Player {} wins!\n'.format(player_num))
+                    self.player_scores[player_num - 1] += 1
+                    self.showScores()
+                    self.game_over = True
 
-        # Check lines
-        for line in lines_to_check:
-            if _checkLine(line):  # someone has won
-                player_num = self.markers.index(line[0]) + 1
-                print('Player {} wins!\n'.format(player_num))
-                self.player_scores[player_num - 1] += 1
+        _detectGameOver(_linesToCheck())
+
+        if not self.game_over:
+            if self.num_moves == 8:
+                empty_square = np.where(
+                    self.board_state == self.default_cell_value
+                )
+                m, n = empty_square
+                # play obvious last move
+                self.playMove(m, n, show_board_after=False)
+            # Check if game drawn
+            elif self.num_moves == 9:
+                print('Draw!\n')
+                self.player_scores += 0.5
                 self.showScores()
                 self.game_over = True
-
-        # Check if game drawn
-        if self.num_moves == 9 and not self.game_over:
-            print('Draw!\n')
-            self.player_scores += 0.5
-            self.showScores()
-            self.game_over = True
 
     def displayBoard(self):
         """Print out board state with formatting"""
