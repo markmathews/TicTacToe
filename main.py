@@ -6,9 +6,11 @@ if __name__ == "__main__":
         invalid_input = True
         while invalid_input:
             try:
-                print('Enter move position as m n: ')
+                print('Enter move position as m<space>n: ')
                 m, n = map(int, input().split())
                 invalid_input = False
+            except ValueError:
+                print('Invalid input - need two space separated integers\n')
             except Exception as e:
                 print('Invalid input: {}\n'.format(e))
         game.playMove(m, n)
