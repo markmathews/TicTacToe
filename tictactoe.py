@@ -11,11 +11,12 @@ class TicTacToe:
         'X' for player 1,
         'O' for player 2
     """
-    def __init__(self, dimension=3):
+    def __init__(self, board_size=3):
         self.default_cell_value = ' '  # single char as placeholder
         self.markers = ('X', 'O')
-        self.dimension = dimension
-        self.dash_length = 4 * self.dimension - 1
+        self.board_size = board_size
+        self.dash_length = 4 * self.board_size - 1
+        self.max_moves = self.board_size ** 2
         self.showGameTitle()
         self.showHelp()
         self.newGame(reset_scores=True)
@@ -46,7 +47,7 @@ class TicTacToe:
     def newGame(self, reset_scores=False):
         if reset_scores:
             self.player_scores = np.array([0, 0], dtype=float)
-        self.board_state = np.full((self.dimension, self.dimension),
+        self.board_state = np.full((self.board_size, self.board_size),
                                    self.default_cell_value)
         self.num_moves = 0
         self.game_over = False
@@ -55,7 +56,7 @@ class TicTacToe:
     def playMove(self, m, n, show_board_after=True):
         """Execute move if possible"""
         if not self.game_over:
-            if m in range(self.dimension) and n in range(self.dimension):
+            if m in range(self.board_size) and n in range(self.board_size):
                 if self.board_state[m, n] != self.default_cell_value:
                     print('That square has already been marked\n')
                     # return False
@@ -117,7 +118,7 @@ class TicTacToe:
         _detectGameOver(_linesToCheck())
 
         if not self.game_over:
-            if self.num_moves == self.dimension ** 2 - 1:
+            if self.num_moves == self.max_moves - 1:
                 empty_square = np.where(
                     self.board_state == self.default_cell_value
                 )
@@ -125,11 +126,11 @@ class TicTacToe:
                 # play obvious last move
                 self.playMove(m, n, show_board_after=False)
             # Check if game drawn
-            elif self.num_moves == self.dimension ** 2:
-                print('Draw!\n')
-                self.player_scores += 0.5
-                self.showScores()
-                self.game_over = True
+            elif self.num_moves == self.max_moves:
+                    print('Draw!\n')
+                    self.player_scores += 0.5
+                    self.showScores()
+                    self.game_over = True
 
     def displayBoard(self):
         """Print out board state with formatting"""

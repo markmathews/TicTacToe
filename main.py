@@ -11,26 +11,23 @@ if __name__ == "__main__":
     except AssertionError:
         print('Please run this script using Python 3.0 or later\n')
     else:
-        invalid_input_N = True
-        while invalid_input_N:
+        while True:  # size input loop
             try:
-                print('Enter board size, N: ')
-                N = int(input())
+                N = int(input('Enter board size, N: '))
                 if N < MIN_BOARD_SIZE or N > MAX_BOARD_SIZE:
-                    print('Pick a board size between {} and {}\n'
-                          .format(MIN_BOARD_SIZE, MAX_BOARD_SIZE))
-                else:
-                    invalid_input_N = False
+                    raise ValueError()
+                break
             except ValueError:
-                print('N must be an integer\n')
-        game = TicTacToe(dimension=N)
-        while True:
-            invalid_input_move = True
-            while invalid_input_move:
+                print('N must be an integer between {} and {}\n'
+                      .format(MIN_BOARD_SIZE, MAX_BOARD_SIZE))
+        game = TicTacToe(board_size=N)
+        while True:  # game loop
+            while True:  # input move loop
                 try:
-                    print('Enter move position as m<space>n: ')
-                    m, n = map(int, input().split())
-                    invalid_input_move = False
+                    m, n = map(int,
+                               input('Enter move position as m<space>n: ')
+                               .split())
+                    break
                 except ValueError:
                     print('Invalid input - need two '
                           'space separated integers\n')
