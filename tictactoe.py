@@ -67,9 +67,6 @@ class TicTacToe:
                     if show_board_after:
                         self.displayBoard()
                     self._updateGameStatus()  # check if either player won
-                    if not self.game_over:
-                        print('Next turn: {}\n'
-                              .format(self.markers[self.num_moves % 2]))
                     # return True
             else:
                 print('Invalid position\n')
@@ -131,6 +128,9 @@ class TicTacToe:
                     self.player_scores += 0.5
                     self.showScores()
                     self.game_over = True
+            else:
+                print('Next turn: {}\n'
+                      .format(self.markers[self.num_moves % 2]))
 
     def displayBoard(self):
         """Print out board state with formatting"""
